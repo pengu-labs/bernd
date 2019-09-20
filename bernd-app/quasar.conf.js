@@ -1,17 +1,18 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
-module.exports = function (ctx) {
+module.exports = function(ctx) {
   return {
+    // Quasar looks for *.js files by default
+    sourceFiles: {
+      router: 'src/router/index.ts',
+      store: 'src/store/index.ts'
+    },
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
-    boot: [
-      'axios'
-    ],
+    boot: ['axios', 'feathers', 'check-auth'],
 
-    css: [
-      'app.sass'
-    ],
+    css: ['app.sass'],
 
     extras: [
       // 'ionicons-v4',
@@ -36,15 +37,30 @@ module.exports = function (ctx) {
       //            (fastest compile time; minimum bundle size; most tedious)
       // * true   - Import everything from Quasar
       //            (not treeshaking Quasar; biggest bundle size; convenient)
-      all: 'auto',
+      all: 'false',
 
-      components: [],
+      components: [
+        'QBtn',
+        'QDrawer',
+        'QForm',
+        'QHeader',
+        'QIcon',
+        'QInput',
+        'QItem',
+        'QItemLabel',
+        'QItemSection',
+        'QLayout',
+        'QList',
+        'QPage',
+        'QPageContainer',
+        'QToggle',
+        'QToolbar',
+        'QToolbarTitle'
+      ],
       directives: [],
 
       // Quasar plugins
-      plugins: [
-        'Notify'
-      ]
+      plugins: ['Notify']
     },
 
     supportIE: false,
@@ -56,7 +72,7 @@ module.exports = function (ctx) {
       // gzip: true,
       // analyze: true,
       // extractCSS: false,
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         cfg.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -65,8 +81,9 @@ module.exports = function (ctx) {
           options: {
             formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }
-        })
-      }
+        });
+      },
+      env: { API: JSON.stringify('http://localhost:3030') }
     },
 
     devServer: {
@@ -95,29 +112,29 @@ module.exports = function (ctx) {
         theme_color: '#027be3',
         icons: [
           {
-            'src': 'statics/icons/icon-128x128.png',
-            'sizes': '128x128',
-            'type': 'image/png'
+            src: 'statics/icons/icon-128x128.png',
+            sizes: '128x128',
+            type: 'image/png'
           },
           {
-            'src': 'statics/icons/icon-192x192.png',
-            'sizes': '192x192',
-            'type': 'image/png'
+            src: 'statics/icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
           },
           {
-            'src': 'statics/icons/icon-256x256.png',
-            'sizes': '256x256',
-            'type': 'image/png'
+            src: 'statics/icons/icon-256x256.png',
+            sizes: '256x256',
+            type: 'image/png'
           },
           {
-            'src': 'statics/icons/icon-384x384.png',
-            'sizes': '384x384',
-            'type': 'image/png'
+            src: 'statics/icons/icon-384x384.png',
+            sizes: '384x384',
+            type: 'image/png'
           },
           {
-            'src': 'statics/icons/icon-512x512.png',
-            'sizes': '512x512',
-            'type': 'image/png'
+            src: 'statics/icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
           }
         ]
       }
@@ -131,29 +148,26 @@ module.exports = function (ctx) {
     electron: {
       // bundler: 'builder', // or 'packager'
 
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         // do something with Electron main process Webpack cfg
         // chainWebpack also available besides this extendWebpack
       },
 
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
-
         // OS X / Mac App Store
         // appBundleId: '',
         // appCategoryType: '',
         // osxSign: '',
         // protocol: 'myapp://path',
-
         // Windows only
         // win32metadata: { ... }
       },
 
       builder: {
         // https://www.electron.build/configuration/configuration
-
         // appId: 'bernd-app'
       }
     }
-  }
-}
+  };
+};

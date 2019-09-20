@@ -15,6 +15,8 @@
         <q-toolbar-title>
           Bernd
         </q-toolbar-title>
+        <q-btn v-if="authenticated()" @click="logout()" flat label="Logout" />
+        <q-btn v-if="!authenticated()" to="login" flat label="Login" />
       </q-toolbar>
     </q-header>
 
@@ -25,16 +27,14 @@
       content-class="bg-grey-2"
     >
       <q-list>
-        <q-item to="/">
-          <q-item-section>
-            Home
-          </q-item-section>
-        </q-item>
-        <q-item to="login">
-          <q-item-section>
-            Login
-          </q-item-section>
-        </q-item>
+        <q-item
+          v-for="route of routes()"
+          v-bind:key="route.route"
+          :to="route.route"
+          ><q-item-section>
+            {{ route.label }}
+          </q-item-section></q-item
+        >
       </q-list>
     </q-drawer>
 
@@ -44,18 +44,22 @@
   </q-layout>
 </template>
 
-<script>
-import { openURL } from "quasar";
+<script lang="ts">
+import Component, { mixins } from 'vue-class-component';
+import { UserMixin } from 'src/domain/api';
 
-export default {
-  name: "MyLayout",
-  data() {
-    return {
-      leftDrawerOpen: false
-    };
-  },
-  methods: {
-    openURL
+@Component
+export default class MyLayout extends mixins(UserMixin) {
+  leftDrawerOpen = false;
+  publicRoutes = [{ label: 'Home', route: '/' }];
+  memberRoutes = [{ label: 'Recipes', route: 'recipes' }];
+
+  authenticated(): boolean {
+    return this.$feathers.authentication.authenticated;
   }
-};
+
+  routes() {
+    return this.authenticated() ? this.memberRoutes : this.publicRoutes;
+  }
+}
 </script>
