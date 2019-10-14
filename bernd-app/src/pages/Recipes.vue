@@ -1,6 +1,8 @@
 <template>
   <q-page class="flex flex-center column">
     <h1 class="text-h4">Recipes</h1>
+    <q-btn label="New Recipe" type="submit" color="primary" to="recipes/new" />
+    <RecipeList :recipes="recipes"></RecipeList>
   </q-page>
 </template>
 
@@ -10,6 +12,16 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-@Component
-export default class Recipes extends Vue {}
+import RecipeList from '../components/RecipeList.vue';
+import { listRecipes, Recipe } from 'src/domain/api';
+@Component({
+  components: { RecipeList }
+})
+export default class Recipes extends Vue {
+  recipes: Recipe[] = [];
+
+  async created() {
+    this.recipes = await listRecipes();
+  }
+}
 </script>

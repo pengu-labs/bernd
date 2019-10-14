@@ -52,7 +52,7 @@ import { UserMixin } from 'src/domain/api';
 export default class MyLayout extends mixins(UserMixin) {
   leftDrawerOpen = false;
   publicRoutes = [{ label: 'Home', route: '/' }];
-  memberRoutes = [{ label: 'Recipes', route: 'recipes' }];
+  memberRoutes = [{ label: 'Recipes', route: '/recipes' }];
 
   authenticated(): boolean {
     return this.$feathers.authentication.authenticated;

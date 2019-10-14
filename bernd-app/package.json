@@ -8,7 +8,9 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "build": "quasar build",
+    "deploy": "cp dist/spa/index.html dist/spa/200.html && surge dist/spa bernd.surge.sh"
   },
   "dependencies": {
     "@feathersjs/authentication-client": "^4.3.2",
@@ -32,7 +34,8 @@
     "eslint-plugin-vue": "^5.0.0",
     "prettier": "^1.18.2",
     "typescript": "^3.3.3",
-    "vue-class-component": "^7.1.0"
+    "vue-class-component": "^7.1.0",
+    "vue-property-decorator": "^8.2.2"
   },
   "engines": {
     "node": ">= 8.9.0",

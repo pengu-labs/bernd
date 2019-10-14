@@ -1,5 +1,10 @@
 export const required = (value: any) => {
-  return (value && value.length > 0) || 'Value required';
+  if (value && value.length > 0) {
+    return true;
+  } else if (typeof value === 'object' && !!value) {
+    return true;
+  }
+  return 'Value required';
 };
 
 export class Validator {

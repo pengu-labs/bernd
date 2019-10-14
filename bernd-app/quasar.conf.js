@@ -42,17 +42,26 @@ module.exports = function(ctx) {
       components: [
         'QBtn',
         'QDrawer',
+        'QExpansionItem',
         'QForm',
         'QHeader',
         'QIcon',
         'QInput',
+        'QCard',
+        'QCardActions',
+        'QCardSection',
+        'QDialog',
         'QItem',
         'QItemLabel',
         'QItemSection',
         'QLayout',
+        'QSelect',
         'QList',
         'QPage',
         'QPageContainer',
+        'QStep',
+        'QStepper',
+        'QStepperNavigation',
         'QToggle',
         'QToolbar',
         'QToolbarTitle'
@@ -60,7 +69,7 @@ module.exports = function(ctx) {
       directives: [],
 
       // Quasar plugins
-      plugins: ['Notify']
+      plugins: ['Notify', 'Dialog']
     },
 
     supportIE: false,
@@ -83,7 +92,9 @@ module.exports = function(ctx) {
           }
         });
       },
-      env: { API: JSON.stringify('http://localhost:3030') }
+      env: ctx.dev
+        ? { API: JSON.stringify('http://localhost:3030') }
+        : { API: JSON.stringify('https://bernd-app.herokuapp.com') }
     },
 
     devServer: {
