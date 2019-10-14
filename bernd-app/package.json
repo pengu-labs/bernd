@@ -10,12 +10,14 @@
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
     "test": "echo \"No test specified\" && exit 0",
     "build": "quasar build",
-    "deploy": "cp dist/spa/index.html dist/spa/200.html && surge dist/spa bernd.surge.sh"
+    "deploy": "cp dist/spa/index.html dist/spa/200.html && surge dist/spa https://bernd.surge.sh"
   },
   "dependencies": {
     "@feathersjs/authentication-client": "^4.3.2",
     "@feathersjs/client": "^4.3.2",
+    "@feathersjs/primus-client": "^4.3.5",
     "@feathersjs/rest-client": "^4.3.2",
+    "@feathersjs/socketio-client": "^4.3.5",
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
     "quasar": "^1.0.0"

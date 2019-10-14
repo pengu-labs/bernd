@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import feathers from '@feathersjs/client';
+import * as feathers from '@feathersjs/client';
 import auth from '@feathersjs/authentication-client';
 import rest from '@feathersjs/rest-client';
 
@@ -9,4 +9,4 @@ client.configure(auth()).configure(restClient.fetch(window.fetch));
 
 Vue.prototype.$feathers = client;
 
-export default client
+export default client;

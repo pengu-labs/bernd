@@ -13,12 +13,13 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 import RecipeList from '../components/RecipeList.vue';
-import { listRecipes, Recipe } from 'src/domain/api';
+import { listRecipes, PaginatedResult, Recipe } from 'src/domain/api';
+
 @Component({
   components: { RecipeList }
 })
 export default class Recipes extends Vue {
-  recipes: Recipe[] = [];
+  recipes: PaginatedResult<Recipe> = { data: [] };
 
   async created() {
     this.recipes = await listRecipes();
