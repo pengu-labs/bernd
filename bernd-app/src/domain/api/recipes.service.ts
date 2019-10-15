@@ -30,9 +30,10 @@ export function updateRecipe(recipe: Recipe) {
   }
 }
 
-export function getRecipe(id: string) {
+export async function getRecipe(id: string) {
   try {
-    return client.service('recipes').get(id);
+    const result = await client.service('recipes').find({ query: { _id: id } });
+    return result.data.length ? result.data[0] : undefined;
   } catch {
     Notify.create({
       color: 'red-5',
